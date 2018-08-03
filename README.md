@@ -16,7 +16,7 @@ npm i -D context-flux-state
 
 ## Create Store
 
-To use context-flux-state, you will need to first create a store. This is done by providing an inital state to the `createFluxContext` function;
+To use context-flux-state, you will need to first create a store. This is done by providing an inital state to the `createFluxContext` function.
 
 ```
 import createFluxContext from './fluxLib'
