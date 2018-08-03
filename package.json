@@ -1,0 +1,28 @@
+{
+  "name": "context-flux-state",
+  "version": "0.0.1",
+  "description": "Wrapper around React context that provides a flux like experience",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/austinwillis/context-flux-state.git"
+  },
+  "keywords": [
+    "react",
+    "context",
+    "state",
+    "redux"
+  ],
+  "author": "Austin Willis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/austinwillis/context-flux-state/issues"
+  },
+  "homepage": "https://github.com/austinwillis/context-flux-state#readme",
+  "dependencies": {
+    "react": "^16.4.2"
+  }
+}
