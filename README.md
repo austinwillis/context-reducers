@@ -1,4 +1,4 @@
-# React Flux State
+# React Context Flux State
 
 This library wraps the React context API to provide a flux like state magement system.
 
@@ -40,7 +40,7 @@ Import the store you created and use the provider to provide the store to child 
 ```
 import Store from './createStore';
 
-class App extends Component {
+export default class StoreProvider extends Component {
   render() {
     return (
         <Store.FluxContainer>
@@ -53,7 +53,7 @@ class App extends Component {
 
 ## Using the Store
 
-The store can be used with the `FluxConsumer` to access state values.
+The `FluxConsumer` property of the store is used to access state values.
 
 ```
 import Store from './createStore';
@@ -69,12 +69,12 @@ export default class Child extends Component {
 
 ## Actions
 
-Actions are used to update the store. Each action is a function that receives state, payload and dispatch as an argument and returns a new state.
+Actions are used to update the store. Each action is a function that receives state, payload and dispatch as arguments and returns a new state.
 
 A simple action that updates the state look like this.
 
 ```
-export function open({ open, ...res }) {
+export function open({ open, ...res }, payload, dispatch) {
     return {
         ...res,
         open: !open
@@ -101,7 +101,7 @@ export default class Child extends Component {
 
 ## Async Updates
 
-Actions that need to asyncronous updates can be done using async functions.
+Actions that need to perform asyncronous updates can be done using async functions.
 
 ```
 export async function getData(state) {
@@ -114,4 +114,41 @@ export async function getData(state) {
 }
 ```
 
-The return value of an asynchronous funtion needs to be a function that receives currentState. This makes sure that once a promise resolves, the state updates can be made without wiping out updates made while waiting on a response.
+The return value of an asynchronous funtion should be a function that receives the current state as an argument. This is necessary to make sure that once a promise resolves, the state updates can be made without wiping out interim updates.
+
+## Dispatch Multiple Actions
+
+When you need to trigger multiple actions, it can be done using the dispatch argument passed into an action.
+
+```
+function setLoading(state) {
+    return ({
+        ...state, loadingData: true
+    })
+}
+
+export async function getData(state, _, dispatch) {
+    dispatch(setLoading)
+    const d = await fetchData();
+    return currentState => ({
+        ...currentState,
+        data: d,
+        loadingData: false
+    });
+}
+```
+
+You can also trigger multiple actions by calling dispatch with multiple arguments.
+
+```
+import Store from './createStore';
+import { setLoading, getData } from './actions';
+
+export default class Child extends Component {
+    render() {
+        return <Store.FluxConsumer>
+          {({ dispatch }) => <button onClick={dispatch(setLoading, getData)}>Toggle</button>}
+        </Store.FluxConsumer>
+    }
+}
+```
