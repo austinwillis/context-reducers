@@ -5,10 +5,14 @@ This library wraps the React context API to provide a flux like state magement s
 ## Install
 
 Add the library with yarn
-```yarn add context-flux-state```
+```
+yarn add context-flux-state
+```
 
 Or install with npm
-```npm i -D context-flux-state```
+```
+npm i -D context-flux-state
+```
 
 ## Create Store
 
