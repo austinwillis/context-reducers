@@ -1,25 +1,25 @@
-# React Context Flux State
+# React Context Reducers
 
-This library wraps the React context API to provide a flux like state magement system.
+This library wraps the React context API to provide global state management. It adapts the idea of reducers from the flux architecture but forgoes the use of actions. Here the actions are the reducers and a dispatch function is provided through React context that allows state changes to be made.
 
 ## Install
 
 Add the library with yarn
 ```
-yarn add context-flux-state
+yarn add context-reducers
 ```
 
 Or install with npm
 ```
-npm i -D context-flux-state
+npm i -D context-reducers
 ```
 
 ## Create Store
 
-To use context-flux-state, you will need to first create a store. This is done by providing an inital state to the `createFluxContext` function.
+To use `context-reducers`, you will need to first create a store. This is done by providing an inital state to the `createDispatchContext` function.
 
 ```
-import createFluxContext from './fluxLib'
+import createDispatchContext from 'context-reducers'
 
 const initialState = {
     open: false,
@@ -28,14 +28,14 @@ const initialState = {
     loadingData: false
 }
 
-export default createFluxContext(initialState);
+export default createDispatchContext(initialState);
 ```
 
-The result of `createFluxContext` is a store object that has a Provider and Consumer that utilize react context.
+The result of `createFluxContext` is a store object that has a Provider and Consumer that utilize React context.
 
 ## Provide Store
 
-Import the store you created and use the provider to provide the store to child components.
+Import the store you created and use the `ContextContainer` to provide the store to child components.
 
 ```
 import Store from './createStore';
@@ -43,9 +43,9 @@ import Store from './createStore';
 export default class StoreProvider extends Component {
   render() {
     return (
-        <Store.FluxContainer>
+        <Store.ContextContainer>
             {this.props.children}
-        </Store.FluxContainer>
+        </Store.ContextContainer>
     );
   }
 }
@@ -53,16 +53,16 @@ export default class StoreProvider extends Component {
 
 ## Using the Store
 
-The `FluxConsumer` property of the store is used to access state values.
+The `ContextConsumer` property of the store is used to access store values.
 
 ```
 import Store from './createStore';
 
 export default class Child extends Component {
     render() {
-      return <Store.FluxConsumer>
+      return <Store.ContextConsumer>
         {({ store: { text } }) => <p>{text}</p>}
-      </Store.FluxConsumer>
+      </Store.ContextConsumer>
     }
 }
 ```
@@ -84,7 +84,7 @@ export function open({ open, ...res }, payload, dispatch) {
 
 ## Updating the Store
 
-Acitons are used to update the store by importing them and passing them to the store's `dispatch` property.
+Actions are used to update the store by importing them and passing them to the store's `dispatch` property.
 
 ```
 import Store from './createStore';
@@ -92,9 +92,9 @@ import { open } from './actions';
 
 export default class Child extends Component {
     render() {
-        return <Store.FluxConsumer>
+        return <Store.ContextConsumer>
           {({ dispatch }) => <button onClick={dispatch(open)}>Toggle</button>}
-        </Store.FluxConsumer>
+        </Store.ContextConsumer>
     }
 }
 ```
@@ -146,9 +146,9 @@ import { setLoading, getData } from './actions';
 
 export default class Child extends Component {
     render() {
-        return <Store.FluxConsumer>
+        return <Store.ContextConsumer>
           {({ dispatch }) => <button onClick={dispatch(setLoading, getData)}>Toggle</button>}
-        </Store.FluxConsumer>
+        </Store.ContextConsumer>
     }
 }
 ```

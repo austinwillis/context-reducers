@@ -1,5 +1,5 @@
 {
-  "name": "context-flux-state",
+  "name": "context-reducers",
   "version": "0.0.1",
   "description": "Wrapper around React context that provides a flux like experience",
   "main": "./lib/index.js",
@@ -23,13 +23,15 @@
     "url": "https://github.com/austinwillis/context-flux-state/issues"
   },
   "homepage": "https://github.com/austinwillis/context-flux-state#readme",
-  "dependencies": {
+  "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "react": "^16.4.2"
+    "babel-preset-react": "^6.24.1"
+  },
+  "peerDependencies": {
+    "react": "^16.3.0"
   }
 }

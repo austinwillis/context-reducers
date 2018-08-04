@@ -1,19 +1,19 @@
 import React, { Component, createContext } from 'react';
 
-export default function createFluxContext(initialState) {
+export default function createDispatchContext(initialState) {
   const { Consumer, Provider } = createContext({
     store: initialState,
     dispatch: () => {}
   });
 
-  const FluxConsumer = Consumer;
-  const FluxContainer = createFluxContainer(initialState, Provider);
+  const ContextConsumer = Consumer;
+  const ContextContainer = createContextContainer(initialState, Provider);
 
-  return { FluxConsumer, FluxContainer };
+  return { ContextConsumer, ContextContainer };
 }
 
-export function createFluxContainer(initialState, Provider) {
-  return class FluxContainer extends Component {
+export function createContextContainer(initialState, Provider) {
+  return class ContextContainer extends Component {
     state = {
       store: initialState,
       dispatch: (...actions) => async (payload) => {
